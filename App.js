@@ -16,10 +16,24 @@ class App extends Component {
 
     this.state = {
       counter: 0,
+      flag: false,
     };
+
+    console.log('constructor');
 
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentDidMount() {
+    // Peticiones asincronas
+    console.log('componentDidMount');
+  }
+
+  // Deprecated
+  componentWillMount() {
+    console.log('componentWillMount');
   }
 
   handleUp() {
@@ -32,8 +46,17 @@ class App extends Component {
     this.setState({counter: ct - 1});
   }
 
+  handleDelete() {
+    this.setState({flag: true});
+  }
+
   render() {
-    const {counter} = this.state;
+    const {counter, flag} = this.state;
+    console.log('render');
+
+    if (flag) {
+      return null;
+    }
 
     return (
       <View style={styles.container}>
@@ -46,6 +69,8 @@ class App extends Component {
 
           <ButtonCustom label="+" action={this.handleUp} />
         </View>
+
+        <ButtonCustom label="D" action={this.handleDelete} />
       </View>
     );
   }
