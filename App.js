@@ -7,7 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
+import ButtonCustom from './components/button';
 
 class App extends Component {
   constructor(props) {
@@ -37,17 +38,13 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.subcontainer}>
-          <TouchableOpacity style={styles.btn} onPress={this.handleDown}>
-            <Text style={styles.btnTxt}>-</Text>
-          </TouchableOpacity>
+          <ButtonCustom label="-" action={this.handleDown} />
 
           <View style={styles.counterContainer}>
             <Text style={styles.counter}>{counter}</Text>
           </View>
 
-          <TouchableOpacity style={styles.btn} onPress={this.handleUp}>
-            <Text style={styles.btnTxt}>+</Text>
-          </TouchableOpacity>
+          <ButtonCustom label="+" action={this.handleUp} />
         </View>
       </View>
     );
@@ -65,18 +62,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
     flexDirection: 'row',
-  },
-  btn: {
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ecf0f1',
-  },
-  btnTxt: {
-    fontSize: 25,
-    color: '#7f8c8d',
-    fontWeight: 'bold',
   },
   counterContainer: {
     flex: 1,
