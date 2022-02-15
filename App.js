@@ -8,8 +8,8 @@
 
 import React, {PureComponent} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import ButtonCustom from './components/button';
-import ActionButtons from './components/actionButtons';
+import ButtonCustom from './app/components/button';
+import ActionButtons from './app/components/actionButtons';
 
 class App extends PureComponent {
   constructor(props) {
