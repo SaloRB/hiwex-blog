@@ -3,112 +3,90 @@
  * https://github.com/facebook/react-native
  *
  * @format
- * @flow strict-local
+ * @flow
  */
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+    this.state = {
+      counter: 0,
+    };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+    this.handleUp = this.handleUp.bind(this);
+    this.handleDown = this.handleDown.bind(this);
+  }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  handleUp() {
+    const {counter: ct} = this.state;
+    this.setState({counter: ct + 1});
+  }
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <Section title="Titulo de la Sección">
-            Contenido de la Sección
-          </Section>
-          <LearnMoreLinks />
+  handleDown() {
+    const {counter: ct} = this.state;
+    this.setState({counter: ct - 1});
+  }
+
+  render() {
+    const {counter} = this.state;
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.subcontainer}>
+          <TouchableOpacity style={styles.btn} onPress={this.handleDown}>
+            <Text style={styles.btnTxt}>-</Text>
+          </TouchableOpacity>
+
+          <View style={styles.counterContainer}>
+            <Text style={styles.counter}>{counter}</Text>
+          </View>
+
+          <TouchableOpacity style={styles.btn} onPress={this.handleUp}>
+            <Text style={styles.btnTxt}>+</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    backgroundColor: '#2c3e50',
+    justifyContent: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  subcontainer: {
+    height: 50,
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  btn: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ecf0f1',
   },
-  highlight: {
-    fontWeight: '700',
+  btnTxt: {
+    fontSize: 25,
+    color: '#7f8c8d',
+    fontWeight: 'bold',
+  },
+  counterContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  counter: {
+    fontSize: 40,
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 
