@@ -3,48 +3,8 @@ import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 class ButtonCustom extends Component {
-  constructor(props) {
-    super(props);
-
-    console.log('hijo constructor');
-  }
-
-  componentDidMount() {
-    // Peticiones asincronas
-    console.log('hijo componentDidMount');
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log({nextProps, nextState});
-    console.log('hijo shouldComponentUpdate');
-    return true;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log({prevProps, prevState});
-    console.log('hijo componentDidUpdate');
-  }
-
-  componentWillUnmount() {
-    console.log('hijo componentWillUnmount');
-  }
-
-  // Deprecated
-  componentWillMount() {
-    console.log('hijo componentWillMount');
-  }
-
-  componentWillReceiveProps() {
-    console.log('hijo componentWillReceiveProps');
-  }
-
-  componentWillUpdate() {
-    console.log('hijo componentWillUpdate');
-  }
-
   render() {
     const {label, action} = this.props;
-    console.log('hijo render');
 
     return (
       <TouchableOpacity style={styles.btn} onPress={action}>

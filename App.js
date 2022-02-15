@@ -6,35 +6,31 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {PureComponent} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import ButtonCustom from './components/button';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       counter: 0,
-      flag: false,
     };
-
-    console.log('constructor');
 
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
-  componentDidMount() {
-    // Peticiones asincronas
-    console.log('componentDidMount');
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const {counter} = this.state;
+  //   if (nextState.counter === counter) {
+  //     return false;
+  //   }
 
-  // Deprecated
-  componentWillMount() {
-    console.log('componentWillMount');
-  }
+  //   return true;
+  // }
 
   handleUp() {
     const {counter: ct} = this.state;
@@ -50,13 +46,14 @@ class App extends Component {
     this.setState({flag: true});
   }
 
-  render() {
-    const {counter, flag} = this.state;
-    console.log('render');
+  handleReset() {
+    this.setState({counter: 0});
+  }
 
-    if (flag) {
-      return null;
-    }
+  render() {
+    const {counter} = this.state;
+
+    console.log('render');
 
     return (
       <View style={styles.container}>
@@ -70,7 +67,11 @@ class App extends Component {
           <ButtonCustom label="+" action={this.handleUp} />
         </View>
 
-        <ButtonCustom label="D" action={this.handleDelete} />
+        <View style={styles.subcontainerReset}>
+          <TouchableOpacity style={styles.btnReset} onPress={this.handleReset}>
+            <Text style={styles.btnTxt}>Reset</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -88,6 +89,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
   },
+  subcontainerReset: {
+    height: 50,
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
   counterContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -97,6 +107,18 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#fff',
     fontWeight: 'bold',
+  },
+  btnTxt: {
+    fontSize: 18,
+    color: '#7f8c8d',
+    fontWeight: 'bold',
+  },
+  btnReset: {
+    height: 50,
+    width: '80%',
+    backgroundColor: '#ecf0f1',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
