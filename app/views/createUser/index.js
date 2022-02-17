@@ -7,7 +7,7 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 
-import test from '../../api/test';
+import createUser from '../../api/user';
 
 class CreateUser extends Component {
 	constructor(props) {
@@ -18,10 +18,6 @@ class CreateUser extends Component {
 			password: null,
 			phone: null,
 		};
-	}
-
-	componentDidMount() {
-		test.get().then(res => console.log({ res }));
 	}
 
 	render() {
@@ -38,6 +34,7 @@ class CreateUser extends Component {
 
 				<Text style={styles.title}>Password:</Text>
 				<TextInput
+					secureTextEntry
 					style={styles.text}
 					value={password}
 					onChangeText={val => this.setState({ password: val })}
@@ -52,7 +49,18 @@ class CreateUser extends Component {
 
 				<TouchableOpacity
 					style={styles.btn}
-					onPress={() => console.log({ email, password, phone })}>
+					onPress={() => {
+						console.log({ email, password, phone });
+						const usr = {
+							email: email,
+							phoneNumber: phone,
+							password: password,
+							displayName: 'Person X',
+						};
+						createUser
+							.post(usr)
+							.then(rows => console.log({ rows }));
+					}}>
 					<Text style={styles.title}>Save</Text>
 				</TouchableOpacity>
 			</View>
