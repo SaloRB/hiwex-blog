@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Service } from 'axios-middleware';
 
 const base = 'https://pokemon-go1.p.rapidapi.com/';
 const headers = {
@@ -7,11 +8,27 @@ const headers = {
 	useQueryString: true,
 };
 
+class Register {
+	constructor() {
+		if (typeof Register.instance === 'object') {
+			return Register.instance;
+		}
+		Register.instance = this;
+	}
+
+	onResponse(response) {
+		const res = JSON.parse(response.data);
+		return res;
+	}
+}
+
 class Request {
 	constructor(url, baseUrl) {
 		this.url = url;
 		this.baseUrl = baseUrl || base;
 		this.request = axios.create({ baseURL: this.baseUrl, headers });
+		const service = new Service(this.request);
+		service.register(new Register());
 	}
 
 	get() {
