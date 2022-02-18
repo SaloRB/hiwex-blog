@@ -7,11 +7,13 @@
  */
 
 import React, { Component } from 'react';
-import CreateUser from './app/views/createUser';
+// import CreateUser from './app/views/createUser';
+import Login from './app/views/login';
 
 class App extends Component {
 	render() {
-		return <CreateUser />;
+		// return <CreateUser />;
+		return <Login />;
 	}
 }
 
