@@ -9,7 +9,7 @@ import {
 
 class Login extends Component {
 	render() {
-		const { cont = 'container' } = this.props;
+		const { cont = 'container', click } = this.props;
 
 		return (
 			<View style={styles[cont]}>
@@ -18,7 +18,7 @@ class Login extends Component {
 				<Text>Password</Text>
 				<TextInput />
 
-				<TouchableOpacity />
+				<TouchableOpacity onPress={click} />
 			</View>
 		);
 	}

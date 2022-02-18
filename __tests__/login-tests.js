@@ -10,6 +10,11 @@ import Login, { styles } from '../app/views/login';
  * Tipos
  */
 
+const props = {
+	cont: 'box',
+	click: jest.fn(),
+};
+
 describe('Rendering', () => {
 	let wrapper;
 	beforeEach(() => {
@@ -43,4 +48,14 @@ describe('Rendering', () => {
 	});
 });
 
-describe('Interaction', () => {});
+describe('Interaction', () => {
+	let wrapper;
+	beforeEach(() => {
+		wrapper = shallow(<Login {...props} />);
+	});
+
+	it('Click Button', () => {
+		wrapper.find('TouchableOpacity').prop('onPress')();
+		expect(props.click).toHaveBeenCalledTimes(1);
+	});
+});
